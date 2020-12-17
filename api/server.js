@@ -1,5 +1,5 @@
 const express = require("express")
-
+const M = require("./users/user-model")
 
 
 
@@ -11,5 +11,22 @@ server.get("/", (req, res) => {
     res.status(200).json({api: "up"})
 })
 
+server.get("/users", (req, res) => {
+    M.getAll()
+        .then(user => {
+            res.status(200).json(user)
+        }) .catch (err => {
+            res.status(500).json(err)
+        })
+})
+
+server.post("/users", async (req, res) => {
+    M.insert(req.body)
+        .then(user => {
+            res.status(201).json(user)
+        }) .catch (err => {
+            res.status(500).json(err)
+        })
+})
 
 module.exports = server
