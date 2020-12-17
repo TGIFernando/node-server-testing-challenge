@@ -108,3 +108,7 @@ dist
 
 # VSCode debugger config
 .vscode/launch.json
+
+users.db3
+
+test.db3
