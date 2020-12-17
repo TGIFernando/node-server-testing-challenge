@@ -18,9 +18,26 @@ afterAll(async () => {
 
 describe('endpoints', () => {
     describe('[POST] /users', () => {
-        it('responds with 200 OK', async () => {
-            const res = await request(server).get('/users')
+        it('responds with 201 CREATED', async () => {
+            const res = await request(server).post('/users').send(Fern)
+            expect(res.status).toBe(201)
+        })
+        it('responds with a user', async () => {
+            const res = await request(server).post('/users').send(Mogi)
+            expect(res.body.name).toBe("Morgan")
+        })
+    })
+
+    describe('[DELETE] /users/:id', () => {
+        it('responds with 200 DELETED', async () => {
+            await request(server).post('/users').send(Fern)
+            const res = await request(server).delete('/users/1')
             expect(res.status).toBe(200)
+        })
+        it('respons with User deleted', async () => {
+            await request(server).post('/users').send(Fern)
+            const res = await request(server).delete('/users/1')
+            expect(res.body.message).toBe("User deleted")
         })
     })
 })

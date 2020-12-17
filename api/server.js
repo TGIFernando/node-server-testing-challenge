@@ -29,4 +29,13 @@ server.post("/users", async (req, res) => {
         })
 })
 
+server.delete("/users/:id", async (req, res) => {
+    M.remove(req.params.id)
+        .then(user => {
+            res.status(200).json({ message: `User deleted`})
+        }) .catch (err => {
+            res.status(500).json(err)
+        })
+})
+
 module.exports = server

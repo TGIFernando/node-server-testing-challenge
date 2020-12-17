@@ -2,8 +2,8 @@ const db = require("../../data/dbConfig")
 
 module.exports = {
     insert,
-    getAll
-
+    getAll,
+    remove
 }
 
 function getAll() {
@@ -14,3 +14,7 @@ async function insert(user) {
     const [id] = await db("users").insert(user)
     return db("users").where({id}).first()
 } 
+
+function remove(id) {
+    return db('users').where({id}).del()
+}
